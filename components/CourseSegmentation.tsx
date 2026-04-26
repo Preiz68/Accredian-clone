@@ -1,44 +1,45 @@
 "use client";
 
 import Image from "next/image";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { useMediaQuery } from "react-responsive";
+import { segments } from "@/constants/data";
 
-const segments = [
-  {
-    title: "Program Specific",
-    description: "Certificate, Executive, Post Graduate Certificate",
-    image: "/segment-program.png",
-  },
-  {
-    title: "Industry Specific",
-    description: "IT, Healthcare, Retail, Finance, Education, Manufacturing",
-    image: "/segment-industry.png",
-  },
-  {
-    title: "Topic Specific",
-    description: "Machine Learning, Design, Analytics, Cybersecurity, Cloud",
-    image: "/segment-topic.png",
-  },
-  {
-    title: "Level Specific",
-    description: "Senior Leadership, Mid-Career Professionals, Freshers",
-    image: "/segment-level.png",
-  },
-];
+import SectionHeader from "./SectionHeader";
 
 export default function CourseSegmentation() {
+  const [mounted, setMounted] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
   const startX = useRef(0);
   const scrollLeft = useRef(0);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDesktop = useMediaQuery({ minWidth: 1024 });
+  const isTablet = useMediaQuery({ minWidth: 640, maxWidth: 1023 });
+  
+  let visibleDotsCount = segments.length;
+  if (isDesktop) {
+    visibleDotsCount = 0;
+  } else if (isTablet) {
+    visibleDotsCount = segments.length - 1;
+  }
+
   const handleScroll = () => {
-    if (scrollRef.current) {
+    if (scrollRef.current && scrollRef.current.firstElementChild) {
       const scrollPosition = scrollRef.current.scrollLeft;
-      const cardWidth = scrollRef.current.offsetWidth;
+      const cardWidth = (scrollRef.current.firstElementChild as HTMLElement)
+        .offsetWidth;
       const newIndex = Math.round(scrollPosition / cardWidth);
-      if (newIndex !== activeIndex && newIndex >= 0 && newIndex < segments.length) {
+      if (
+        newIndex !== activeIndex &&
+        newIndex >= 0 &&
+        newIndex < segments.length
+      ) {
         setActiveIndex(newIndex);
       }
     }
@@ -76,103 +77,100 @@ export default function CourseSegmentation() {
   };
 
   return (
-    <section className="w-full bg-white py-16 lg:py-24" id="segmentation">
-      <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
-        {/* Header */}
-        <div className="text-center mb-12 lg:mb-20">
-          <h2 className="text-3xl lg:text-[40px] font-bold text-slate-900 mb-3 tracking-tight">
-            Tailored <span className="text-[#1D7AE5]">Course Segmentation</span>
-          </h2>
-          <p className="text-gray-600 text-base lg:text-lg font-medium">
-            Explore <span className="text-[#1D7AE5]">Custom-fit Courses</span>{" "}
-            Designed to Address Every Professional Focus
-          </p>
-        </div>
+    <section
+      className="mt-12 sm:mt-28 md:mx-16 mb-10 bg-white text-center font-circular"
+      id="segmentation"
+    >
+      {!mounted ? (
+        <div className="h-40" />
+      ) : (
+        <>
+          <SectionHeader 
+            title={<>Tailored <span className="text-[#1A73E8]">Course Segmentation</span></>}
+            subtitle={<>Explore <span className="text-[#1A73E8]">Custom-fit Courses</span> Designed to Address Every Professional Focus</>}
+          />
 
-        {/* Cards Grid / Carousel */}
-        <div className="w-full">
-          {/* Desktop: Grid */}
-          <div className="hidden lg:grid grid-cols-4 gap-8">
-            {segments.map((segment, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-xl overflow-hidden shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] border border-slate-100 flex flex-col h-full transition-transform hover:-translate-y-2 duration-300"
-              >
-                <div className="relative h-48 w-full">
-                  <Image
-                    src={segment.image}
-                    alt={segment.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-8 flex flex-col items-center text-center grow">
-                  <h3 className="text-[#1D7AE5] text-2xl font-bold mb-4">
-                    {segment.title}
-                  </h3>
-                  <p className="text-slate-500 text-sm leading-relaxed">
-                    {segment.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Mobile: Horizontal Carousel with Snap points */}
-          <div className="lg:hidden">
-            <div
-              ref={scrollRef}
-              onScroll={handleScroll}
-              onMouseDown={onMouseDown}
-              onMouseLeave={onMouseLeave}
-              onMouseUp={onMouseUp}
-              onMouseMove={onMouseMove}
-              className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-0 pb-4 no-scrollbar cursor-grab select-none"
-              style={{
-                scrollbarWidth: "none",
-                msOverflowStyle: "none",
-                WebkitOverflowScrolling: "touch",
-              }}
-            >
+          <div className="w-full px-6">
+            <div className="hidden lg:grid lg:grid-cols-2 xl:grid-cols-4 gap-8">
               {segments.map((segment, index) => (
-                <div key={index} className="shrink-0 w-full snap-center px-4">
-                  <div className="bg-white rounded-xl overflow-hidden shadow-[0_10px_30px_-10px_rgba(0,0,0,0.1)] border border-slate-100">
-                    <div className="relative h-56 w-full">
-                      <Image
-                        src={segment.image}
-                        alt={segment.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                        className="object-cover pointer-events-none"
-                      />
-                    </div>
-                    <div className="p-10 flex flex-col items-center text-center">
-                      <h3 className="text-[#1D7AE5] text-2xl font-bold">
-                        {segment.title}
-                      </h3>
-                    </div>
+                <div
+                  key={index}
+                  className="bg-white rounded-lg overflow-hidden shadow-lg border border-gray-300 flex flex-col h-full transition-transform hover:-translate-y-2 duration-300"
+                >
+                  <div className="relative h-40 w-full">
+                    <Image
+                      src={segment.image}
+                      alt={segment.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                      className="object-cover rounded-t-lg"
+                    />
+                  </div>
+                  <div className="p-6 flex flex-col items-center text-center grow justify-center">
+                    <h3 className="text-2xl font-semibold text-[#1A73E8]">
+                      {segment.title}
+                    </h3>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* Pagination dots (Dynamic) */}
-            <div className="flex justify-center gap-2.5 mt-6">
-              {segments.map((_, index) => (
-                <div
-                  key={index}
-                  className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-                    index === activeIndex
-                      ? "bg-[#1D7AE5] scale-110"
-                      : "bg-slate-200"
-                  }`}
-                ></div>
-              ))}
+            <div className="lg:hidden">
+              <div
+                ref={scrollRef}
+                onScroll={handleScroll}
+                onMouseDown={onMouseDown}
+                onMouseLeave={onMouseLeave}
+                onMouseUp={onMouseUp}
+                onMouseMove={onMouseMove}
+                className="flex overflow-x-auto snap-x snap-mandatory scrollbar-hide gap-0 pb-4 no-scrollbar cursor-grab select-none"
+                style={{
+                  scrollbarWidth: "none",
+                  msOverflowStyle: "none",
+                  WebkitOverflowScrolling: "touch",
+                }}
+              >
+                {segments.map((segment, index) => (
+                  <div
+                    key={index}
+                    className="shrink-0 w-full sm:w-1/2 snap-center px-4"
+                  >
+                    <div className="bg-white rounded-lg overflow-hidden shadow-lg border border-gray-300">
+                      <div className="relative h-40 w-full">
+                        <Image
+                          src={segment.image}
+                          alt={segment.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 50vw"
+                          className="object-cover rounded-t-lg pointer-events-none"
+                        />
+                      </div>
+                      <div className="p-6 flex flex-col items-center text-center">
+                        <h3 className="text-2xl font-semibold text-[#1A73E8]">
+                          {segment.title}
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="flex justify-center gap-2.5 mt-6">
+                {segments.slice(0, visibleDotsCount).map((_, index) => (
+                  <div
+                    key={index}
+                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                      index === Math.min(activeIndex, visibleDotsCount - 1)
+                        ? "bg-[#1A73E8] scale-110"
+                        : "bg-slate-200"
+                    }`}
+                  ></div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </section>
   );
 }

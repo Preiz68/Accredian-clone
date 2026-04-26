@@ -1,69 +1,69 @@
-import { BarChart3, Presentation, MonitorPlay } from "lucide-react";
-
-const steps = [
-  {
-    number: 1,
-    title: "Skill Gap Analysis",
-    description: "Assess team skill gaps and developmental needs.",
-    icon: <BarChart3 className="w-8 h-8 text-white" />,
-  },
-  {
-    number: 2,
-    title: "Customized Training Plan",
-    description: "Create a tailored roadmap addressing organizational goals.",
-    icon: <Presentation className="w-8 h-8 text-white" />,
-  },
-  {
-    number: 3,
-    title: "Flexible Program Delivery",
-    description: "Deliver adaptable programs aligned with industry and organizational needs.",
-    icon: <MonitorPlay className="w-8 h-8 text-white" />,
-  },
-];
+import { ChartNoAxesCombined, MonitorPlay, Presentation } from "lucide-react";
 
 export default function DeliveryApproach() {
   return (
-    <section className="w-full bg-white py-16 lg:py-24" id="delivery-approach">
-      <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
-        {/* Header */}
-        <div className="text-center mb-16 lg:mb-20">
-          <h2 className="text-3xl lg:text-[40px] font-bold text-slate-900 mb-3 tracking-tight">
-            How We <span className="text-[#1D7AE5]">Deliver Results</span> That Matter?
+    <section id="howItWorks" className="mt-12 sm:mt-24">
+      <div className="mx-auto max-w-6xl">
+        <div className="text-center mb-10  mx-2">
+          <h2 className="text-2xl mx-1 md:text-4xl font-bold text-gray-900 leading-tight">
+            How We <span className="text-[#1A73E8]">Deliver Results</span> That
+            Matter?
           </h2>
-          <p className="text-gray-600 text-base lg:text-lg font-medium">
-            A Structured Three-Step Approach to <span className="text-[#1D7AE5]">Skill Development</span>
+          <p className="text-sm sm:text-lg text-gray-700 mt-3 m-auto mx-1">
+            A Structured Three-Step Approach to{" "}
+            <span className="text-[#1A73E8]">Skill Development</span>
           </p>
         </div>
-
-        {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
-          {steps.map((step, index) => (
-            <div key={index} className="relative group">
-              {/* The Card */}
-              <div className="bg-[#EEF5FF] rounded-2xl p-10 flex flex-col items-center text-center relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 min-h-[320px]">
-                
-                {/* Blue Side Bars */}
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-3/5 bg-[#1D7AE5] rounded-r-full"></div>
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-3/5 bg-[#1D7AE5] rounded-l-full"></div>
-
-                {/* Step Number */}
-                <div className="absolute top-6 left-6 w-8 h-8 rounded-full border-2 border-[#1D7AE5] flex items-center justify-center text-[#1D7AE5] font-bold text-sm bg-white">
-                  {step.number}
-                </div>
-
-                {/* Icon Container */}
-                <div className="w-16 h-16 bg-[#1D7AE5] rounded-full flex items-center justify-center mb-8 shadow-lg shadow-blue-200">
-                  {step.icon}
-                </div>
-
-                {/* Content */}
-                <h3 className="text-xl lg:text-2xl font-bold text-slate-900 mb-4">{step.title}</h3>
-                <p className="text-gray-600 text-sm lg:text-base leading-relaxed">
-                  {step.description}
-                </p>
-              </div>
+        <div className="flex flex-wrap justify-center gap-8 px-4">
+          <div className="relative bg-blue-50 border border-blue-300 rounded-xl shadow-lg p-4 sm:p-6 flex flex-col items-center text-center max-w-[18rem] w-full">
+            <div className="absolute left-[-4px] sm:left-[-8px] top-1/2 -translate-y-1/2 w-1 sm:w-2 h-6 sm:h-15 bg-[#1A73E8] rounded-lg"></div>
+            <div className="absolute right-[-4px] sm:right-[-8px] top-1/2 -translate-y-1/2 w-1 sm:w-2 h-6 sm:h-15 bg-[#1A73E8] rounded-lg"></div>
+            <div className="absolute left-[10px] top-6 -translate-y-1/2 w-6 h-6 border-blue-300 border-2 bg-white rounded-full  flex justify-center items-center font-normal sm:font-bold text-center">
+              <p>1</p>
             </div>
-          ))}
+            <div className="w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center bg-[#1A73E8] text-white rounded-full shadow-md">
+              <ChartNoAxesCombined className="size-8 text-white" />
+            </div>
+            <h3 className=" text-md sm:text-lg font-normal sm:font-semibold text-gray-900 mt-4">
+              Skill Gap Analysis
+            </h3>
+            <p className="text-gray-600 hidden md:block text-sm mt-2 max-w-[18rem]">
+              Assess team skill gaps and developmental needs.
+            </p>
+          </div>
+          <div className="relative bg-blue-50 border border-blue-300 rounded-xl shadow-lg p-4 sm:p-6 flex flex-col items-center text-center max-w-[18rem] w-full">
+            <div className="absolute left-[-4px] sm:left-[-8px] top-1/2 -translate-y-1/2 w-1 sm:w-2 h-6 sm:h-15 bg-[#1A73E8] rounded-lg"></div>
+            <div className="absolute right-[-4px] sm:right-[-8px] top-1/2 -translate-y-1/2 w-1 sm:w-2 h-6 sm:h-15 bg-[#1A73E8] rounded-lg"></div>
+            <div className="absolute left-[10px] top-6 -translate-y-1/2 w-6 h-6 border-blue-300 border-2 bg-white rounded-full flex justify-center items-center font-normal sm:font-bold text-center">
+              <p>2</p>
+            </div>
+            <div className="w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center bg-[#1A73E8] text-white rounded-full shadow-md">
+              <Presentation className="size-8 text-white" />
+            </div>
+            <h3 className=" text-md sm:text-lg font-normal sm:font-semibold text-gray-900 mt-4">
+              Customized Training Plan
+            </h3>
+            <p className="text-gray-600 hidden md:block text-sm mt-2 max-w-[18rem]">
+              Create a tailored roadmap addressing organizational goals.
+            </p>
+          </div>
+          <div className="relative bg-blue-50 border border-blue-300 rounded-xl shadow-lg p-4 sm:p-6 flex flex-col items-center text-center max-w-[20rem] w-full">
+            <div className="absolute left-[-4px] sm:left-[-8px] top-1/2 -translate-y-1/2 w-1 sm:w-2 h-6 sm:h-15 bg-[#1A73E8] rounded-lg"></div>
+            <div className="absolute right-[-4px] sm:right-[-8px] top-1/2 -translate-y-1/2 w-1 sm:w-2 h-6 sm:h-15 bg-[#1A73E8] rounded-lg"></div>
+            <div className="absolute left-[10px] top-6 -translate-y-1/2 w-6 h-6 border-blue-300 border-2 bg-white rounded-full flex justify-center items-center font-normal sm:font-bold text-center">
+              <p>3</p>
+            </div>
+            <div className="w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center bg-[#1A73E8] text-white rounded-full shadow-md">
+              <MonitorPlay className="size-8 text-white" />
+            </div>
+            <h3 className=" text-md sm:text-lg font-normal sm:font-semibold text-gray-900 mt-4">
+              Flexible Program Delivery
+            </h3>
+            <p className="text-gray-600 hidden md:block text-sm mt-2 max-w-[18rem]">
+              Deliver adaptable programs aligned with industry and
+              organizational needs.
+            </p>
+          </div>
         </div>
       </div>
     </section>
